@@ -15,7 +15,7 @@ Ext.define('DepartmentsPanel', {
             }],
             items: this.createDepartmentsView(), 
         });
-
+        this.addEvents('departmentSelect');
         this.callParent(arguments);
     },
 
@@ -51,9 +51,7 @@ Ext.define('DepartmentsPanel', {
         });
     },
     
-    onSelectionChange: function ()
-    {
-        alert("Update grid");
-        // TODO update grid
+    onSelectionChange: function (dep, selections) {
+        this.fireEvent('departmentSelect', this, selections[0].data);
     }
 });

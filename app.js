@@ -4,7 +4,10 @@
     initComponent: function() {
         Ext.apply(this, {
            mainPanel: this.createMainPanel(),
-           employeeWindow: Ext.create('EmployeeWindow'),
+           employeeWindow: Ext.create('EmployeeWindow', {departmentList: [
+                        { id: 1, title: 'Отдел A' },
+                        { id: 2, title: 'Отдел B' }
+                    ]}),
            departmentWindow: Ext.create('DepartmentWindow')
         });
 
@@ -24,13 +27,15 @@
 
     createEmployeesGrid: function() {
         return Ext.create('EmployeesGrid', {
-            addEmployeeAction: this.createEmployeeAction() 
+            addEmployeeAction: this.createEmployeeAction(),
+            editEmployeeAction: this.editEmployeeAction()
         });
     },
     
     createDepartmentsPanel: function() {
         return Ext.create('DepartmentsPanel', {
-            createDepartmentAction: this.createDepartmentAction() 
+            createDepartmentAction: this.createDepartmentAction(),
+            listeners: { scope: this, departmentSelect: this.onDepartmentSelect }
         });
     },
 
@@ -45,6 +50,18 @@
         });
     },
     
+    editEmployeeAction: function() {
+        var app = this;
+        return Ext.create('Ext.Action', {
+            iconCls: 'add-user',
+            text: 'Редактировать сотрудника',
+            handler: function(widget, event) {
+                console.log(app);
+                app.employeeWindow.show();
+            }
+        });
+    },
+   
     createDepartmentAction: function() {
         var app = this;
         return Ext.create('Ext.Action', {
@@ -54,6 +71,10 @@
                 app.departmentWindow.show();
             }
         });
+    },
+    
+    onDepartmentSelect: function(panel, dep) {
+        console.log(dep);
     }
 });
 

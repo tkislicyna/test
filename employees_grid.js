@@ -60,7 +60,7 @@ Ext.define('EmployeesGrid', {
            
             dockedItems: [{
                 xtype: 'toolbar',
-                items: this.addEmployeeAction
+                items: [this.addEmployeeAction, this.editEmployeeAction]
             }],
 
             viewConfig: {

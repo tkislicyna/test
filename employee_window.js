@@ -8,6 +8,7 @@ Ext.define('EmployeeWindow', {
     height: 170,
     layout: 'fit',
     plain: true,
+    data: [],
     buttons: [{
         text: 'Сохранить'
     },{
@@ -45,19 +46,35 @@ Ext.define('EmployeeWindow', {
                 name: 'department',
                 anchor: '100%',
                 allowBlank: false,
-                store: Ext.create('Ext.data.ArrayStore', {
-                    fields: ['abbr', 'state'],
-                    data: [
-                        ['AL', 'Alabama' ],
-                        ['AK', 'Alaska' ]
-                    ]
+                store: Ext.create('Ext.data.Store', {
+                    model: 'Departments',
+                    data: this.departmentList
                 }),
-                valueField: 'abbr',
-                displayField: 'state',
+                valueField: 'id',
+                displayField: 'title',
                 typeAhead: true,
                 queryMode: 'local',
                 emptyText: 'Выберите отдел ...'
             }]
         });
+    },
+    
+    cleanForm: function() {
+        var fieldList = this.items.items;
+        for (var i = 0; i < fieldList.length; i++) {
+            fieldList[i].value = '';
+        }
+    },
+    
+    initForm: function(data) {
+        var fieldList = this.items.items;
+        for (var i = 0; i < fieldList.length; i++) {
+            if(data[fieldList[i].name]) {
+                fieldList[i].value = data[fieldList[i].name];
+            }else {
+                fieldList[i].value = '';
+            }
+        }
     }
+    
 });
