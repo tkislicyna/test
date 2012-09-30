@@ -16,7 +16,12 @@ Ext.require([
     'Ext.grid.*',
     'Ext.data.*',
     'Ext.util.*',
-    'Ext.state.*'
+    'Ext.state.*',
+    'Ext.tab.*',
+    'Ext.window.*',
+    'Ext.layout.container.Border',
+    'Ext.Action',
+    'Ext.tip.*',
 ]);
 
 Ext.onReady(function() {
@@ -44,35 +49,102 @@ Ext.onReady(function() {
         ],
         data: myData
     });
+    //create dialog and form for add user
+    var form = Ext.create('Ext.form.Panel', {
+        url: 'save-form.php',
+        defaultType: 'textfield',
+        border: false,
+        bodyPadding: 7,
+        fieldDefaults: { labelWidth:60 },
+        items: [{
+            fieldLabel: 'Фамилия',
+            allowBlank: false,
+            name: 'lastName',
+            anchor: '100%'
+        }, {
+            fieldLabel: 'Имя',
+            allowBlank: false,
+            name: 'firstName',
+            anchor: '100%'
+        }, {
+            xtype: 'combobox',
+            fieldLabel: 'Отдел',
+            name: 'department',
+            anchor: '100%',
+            allowBlank: false,
+            store: Ext.create('Ext.data.ArrayStore', {
+                fields: ['abbr', 'state'],
+                data: [
+                    ['AL', 'Alabama' ],
+                    ['AK', 'Alaska' ]
+                ]
+            }),
+            valueField: 'abbr',
+            displayField: 'state',
+            typeAhead: true,
+            queryMode: 'local',
+            emptyText: 'Выберите отдел ...'
+        }]
+    });
+    
+    var win = Ext.create('widget.window', {
+        title: 'Добавить сотрудника',
+        closable: true,
+        closeAction: 'hide',
+        width: 270,
+        minWidth: 230,
+        height: 170,
+        layout: 'fit',
+        plain:true,
+        items: form,
+        buttons: [{
+            text: 'Сохранить'
+        },{
+            text: 'Отмена'
+        }]
+    });    
 
-    // create the Grid
+    var addEmployeeAction = Ext.create('Ext.Action', {
+        iconCls: 'add-user',
+        text: 'Добавить сотрудника',
+        handler: function(widget, event) {
+            win.show();
+        }
+    });
+
+    var contextMenu = Ext.create('Ext.menu.Menu', {
+        items: [
+            addEmployeeAction
+        ]
+    });
+    
     var grid = Ext.create('Ext.grid.Panel', {
         store: store,
         stateful: true,
         stateId: 'stateGrid',
         columns: [
             {
-                header     : 'Фамилия',
-                width    : 75,
-                sortable : true,
+                header: 'Фамилия',
+                width: 75,
+                sortable: true,
                 dataIndex: 'lastName'
             },
             {
-                header     : 'Имя',
-                width    : 75,
-                sortable : true,
+                header: 'Имя',
+                width: 75,
+                sortable: true,
                 dataIndex: 'firstName'
             },
             {
-                header     : 'Отдел',
-                width    : 75,
-                sortable : true,
+                header: 'Отдел',
+                width: 75,
+                sortable: true,
                 dataIndex: 'department'
             },
             {
-                header     : 'Телефон',
-                width    : 75,
-                sortable : true,
+                header: 'Телефон',
+                width: 75,
+                sortable: true,
                 dataIndex: 'phoneNumber'
             },
             {
@@ -81,7 +153,7 @@ Ext.onReady(function() {
                 width: 75,
                 items: [  
                     {
-                        icon   : 'icons/fam/user_edit.png',
+                        icon: 'icons/fam/user_edit.png',
                         tooltip: 'Редактировать',
                         handler: function(grid, rowIndex, colIndex) {
                             var rec = store.getAt(rowIndex);
@@ -89,21 +161,72 @@ Ext.onReady(function() {
                         }
                     },
                     {
-                        icon   : 'icons/fam/cross.gif', 
+                        icon: 'icons/fam/cross.gif', 
                         tooltip: 'Удалить',
                         handler: function(grid, rowIndex, colIndex) {
                             var rec = store.getAt(rowIndex);
-                            alert("delete " + rec.get('id'));
+                            Ext.MessageBox.show({
+                                title: 'Удаление сотрудника',
+                                msg: 'Вы действительно хотите удалить сотрудника?',
+                                buttons:Ext.MessageBox.YESNO,
+                                fn: function(btn)
+                                {
+                                    alert(btn);
+                                    //alert("delete " + rec.get('id'));
+                                }
+                            });
                         }
                     }
                 ]
             }
         ],
         title: 'Сотрудники',
-        renderTo: 'grid',
+       
+        dockedItems: [{
+            xtype: 'toolbar',
+            items: [
+                addEmployeeAction
+            ]
+        }],
         viewConfig: {
-            stripeRows: true
+            stripeRows: true,
+            listeners: {
+                itemcontextmenu: function(view, rec, node, index, e) {
+                    e.stopEvent();
+                    contextMenu.showAt(e.getXY());
+                    return false;
+                }
+            }
         }
     });
+    
+    var deps =  Ext.create('Ext.panel.Panel', {
+        dockedItems: [{
+            xtype: 'toolbar',
+            items: [ addEmployeeAction ]
+        }]
+    });
+
+    //layout
+    Ext.create('Ext.panel.Panel', {
+        height: 350,
+        anchor: '100%',
+        layout: 'border',
+        bodyStyle: 'padding: 5px;',
+        renderTo: 'grid',
+        items: [{
+            region: 'west',
+            title: 'Отделы',
+            width: 250,
+            split: true,
+            collapsible: true,
+            floatable: false,
+            items: deps
+        }, {
+            region: 'center',
+            items: grid
+        }]
+    });
+    
 });
 
