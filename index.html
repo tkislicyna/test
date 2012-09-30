@@ -1,52 +1,64 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE HTML>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Stateful Array Grid Example</title>
+    <title>Сотрудники</title>
     <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css" />
     <script type="text/javascript" src="extjs/ext-all-dev.js"></script>
     <script type="text/javascript" src="extjs/ext-lang-ru.js"></script>
+
     <!-- page specific -->
     <style type="text/css">
-        /* style rows on mouseover */
-        .x-grid-row-over .x-grid-cell-inner {
-            font-weight: bold;
+        .dep-list-item-hover
+        {
+            background-color: #eee
         }
-        /* shared styles for the ActionColumn icons */
-        .x-action-col-cell img {
-            height: 16px;
-            width: 16px;
-            cursor: pointer;
+        .dep-list-item
+        {
+             cursor: pointer
         }
-        /* custom icon for the "buy" ActionColumn icon */
-        .x-action-col-cell img.buy-col {
-            background-image: url(icons/fam/accept.png);
+        .dep-list .x-item-selected
+        {
+            font-weight: bold
         }
-        /* custom icon for the "alert" ActionColumn icon */
-        .x-action-col-cell img.alert-col {
-            background-image: url(icons/fam/error.png);
-        }
-
-        .x-ie6 .x-action-col-cell img.buy-col {
-            background-image: url(icons/fam/accept.gif);
-        }
-        .x-ie6.x-action-col-cell img.alert-col {
-            background-image: url(icons/fam/error.gif);
-        }
-
-        .x-ie6 .x-action-col-cell img {
-            position:relative;
-            top:-1px;
-        }
-        
-        .add-user {
+        .add-user 
+        {
             background-image: url("icons/fam/user_add.png") !important;
+        }
+        .add-button 
+        {
+            background-image: url("icons/fam/add.png") !important;
         }
     </style>
 
+    <script type="text/javascript" src="extjs/ext-lang-ru.js"></script>
+    <script type="text/javascript" src="models.js"></script>
+    <script type="text/javascript" src="departments_panel.js"></script>
+    <script type="text/javascript" src="department_window.js"></script>
+    <script type="text/javascript" src="employees_grid.js"></script>
+    <script type="text/javascript" src="employee_window.js"></script>
     <script type="text/javascript" src="app.js"></script>
+
+    <script type="text/javascript">
+        Ext.require([
+            'Ext.container.*',
+            'Ext.grid.*',
+            'Ext.data.*',
+            'Ext.util.*',
+            'Ext.state.*',
+            'Ext.tab.*',
+            'Ext.window.*',
+            'Ext.layout.container.Border',
+            'Ext.Action',
+            'Ext.tip.*',
+        ]);
+
+        Ext.onReady(function(){
+            var app = new App();
+        });
+
+    </script>
 </head>
 <body>
-    <div id="grid"></div>
 </body>
 </html>
