@@ -35,10 +35,10 @@ public class InitialFill
         Department b = createDepartment("Отдел В", "654321");
 
         createEmployee("Петр", "Петров", a);
-        createEmployee("Петр", "Сидоров", a);
-        createEmployee("Петр", "Иванов", a);
-        createEmployee("Иван", "Петров", b);
-        createEmployee("Сидор", "Петров", b);
+        createEmployee("Василий", "Сидоров", a);
+        createEmployee("Иван", "Иванов", a);
+        createEmployee("Юрий", "Гагарин", b);
+        createEmployee("Герман", "Титов", b);
     }
 
     private Department createDepartment(String title,
