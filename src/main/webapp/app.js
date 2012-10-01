@@ -1,9 +1,10 @@
 ﻿Ext.define('App', {
     extend: 'Ext.container.Viewport',
-    
+    layout: 'anchor',
+
     initComponent: function() {
         Ext.apply(this, {
-           mainPanel: this.createMainPanel(),
+           items: this.createMainPanel(),
            employeeWindow: Ext.create('EmployeeWindow', {departmentList: [
                         { id: 1, title: 'Отдел A' },
                         { id: 2, title: 'Отдел B' }
@@ -16,8 +17,7 @@
 
     createMainPanel: function() {
         return Ext.create('Ext.panel.Panel', {
-            height: 350,
-            anchor: '100%',
+            anchor: '100% 100%',
             layout: 'border',
             bodyStyle: 'padding: 5px;',
             renderTo: Ext.getBody(),
@@ -26,17 +26,19 @@
     },
 
     createEmployeesGrid: function() {
-        return Ext.create('EmployeesGrid', {
+        this.employeesGrid = Ext.create('EmployeesGrid', {
             addEmployeeAction: this.createEmployeeAction(),
             editEmployeeAction: this.editEmployeeAction()
         });
+        return this.employeesGrid;
     },
-    
+
     createDepartmentsPanel: function() {
-        return Ext.create('DepartmentsPanel', {
+        this.departmentsPanel = Ext.create('DepartmentsPanel', {
             createDepartmentAction: this.createDepartmentAction(),
             listeners: { scope: this, departmentSelect: this.onDepartmentSelect }
         });
+        return this.departmentsPanel;
     },
 
     createEmployeeAction: function() {
@@ -49,7 +51,7 @@
             }
         });
     },
-    
+
     editEmployeeAction: function() {
         var app = this;
         return Ext.create('Ext.Action', {
@@ -61,7 +63,7 @@
             }
         });
     },
-   
+
     createDepartmentAction: function() {
         var app = this;
         return Ext.create('Ext.Action', {
@@ -72,9 +74,11 @@
             }
         });
     },
-    
+
     onDepartmentSelect: function(panel, dep) {
-        console.log(dep);
+        this.employeesGrid.store.getProxy().extraParams.departmentId=dep.id.id;
+        this.employeesGrid.store.load();
+        console.log(this.employeesGrid.store);
     }
 });
 

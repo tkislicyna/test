@@ -27,6 +27,14 @@ public class EmployeeService
     @Produces(MediaTypes.JSON_UTF_8)
     public Collection<Employee> getEmployees(@QueryParam("departmentId") Integer departmentId)
     {
+        try
+        {
+            Thread.sleep(1300);
+        } catch (InterruptedException e)
+        {
+            throw new RuntimeException(e);
+        }
+
         if (departmentId == null)
         {
             return this.employeeDao.findAll();

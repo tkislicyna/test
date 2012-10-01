@@ -23,11 +23,19 @@ Ext.define('DepartmentsPanel', {
         return Ext.create('widget.dataview', {
             store: Ext.create('Ext.data.Store', {
                 model: 'Departments',
-                data: [
-                    { id: 0, title: 'Все сотрудники' },
-                    { id: 1, title: 'Отдел A' },
-                    { id: 2, title: 'Отдел B' }
-                ] // TODO
+                proxy: {
+                    type: 'ajax',
+                    url: 'rs/departments',
+                    reader: {
+                        type: 'json',
+                        idProperty: 'id.id'
+                    },
+		            pageParam: undefined,
+		            limitParam: undefined,
+		            startParam: undefined,
+		            noCache: false
+                },
+                autoLoad: true
             }),
 
             selModel: {
@@ -47,7 +55,7 @@ Ext.define('DepartmentsPanel', {
             cls: 'dep-list',
             itemSelector: 'div.dep-list-item',
             overItemCls: 'dep-list-item-hover',
-            tpl: '<tpl for="."><div class="dep-list-item">{title}</div></tpl>'
+            tpl: '<tpl for="."><div class="dep-list-item">{title} (тел. {phoneNumber})</div></tpl>'
         });
     },
     

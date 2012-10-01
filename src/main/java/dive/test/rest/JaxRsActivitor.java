@@ -8,7 +8,7 @@ import javax.ws.rs.core.Application;
  * @author tkislicyna
  * 
 **/
-@ApplicationPath("/")
+@ApplicationPath("/rs/")
 public class JaxRsActivitor extends Application
 {
 }
