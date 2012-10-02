@@ -20,8 +20,13 @@ import dive.test.entities.Employee;
 @Path("employees")
 public class EmployeeService
 {
-    @Inject
     private EmployeeDao employeeDao;
+
+    @Inject
+    public void setEmployeeDao(EmployeeDao employeeDao)
+    {
+        this.employeeDao = employeeDao;
+    }
 
     @GET
     @Produces(MediaTypes.JSON_UTF_8)

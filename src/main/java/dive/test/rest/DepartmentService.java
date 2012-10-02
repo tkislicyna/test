@@ -18,8 +18,13 @@ import dive.test.entities.Department;
 @Path("departments")
 public class DepartmentService
 {
-    @Inject
     private DepartmentDao depDao;
+
+    @Inject
+    public void setDepartmentDao(DepartmentDao depDao)
+    {
+        this.depDao = depDao;
+    }
 
     @GET
     @Produces(MediaTypes.JSON_UTF_8)
