@@ -76,9 +76,12 @@
     },
 
     onDepartmentSelect: function(panel, dep) {
-        this.employeesGrid.store.getProxy().extraParams.departmentId=dep.id.id;
+        if (dep) {
+            this.employeesGrid.store.getProxy().extraParams.departmentId=dep.id.id;
+        } else {
+            delete this.employeesGrid.store.getProxy().extraParams.departmentId;
+        }
         this.employeesGrid.store.load();
-        console.log(this.employeesGrid.store);
     }
 });
 

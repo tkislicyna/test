@@ -21,8 +21,7 @@ Ext.define('EmployeesGrid', {
                     limitParam: undefined,
                     startParam: undefined,
                     noCache: false
-                },
-                autoLoad: true
+                }
             }),
             columns: [
                 { header: 'Фамилия', width: 75, sortable: true, dataIndex: 'lastName' },
@@ -43,7 +42,7 @@ Ext.define('EmployeesGrid', {
                             }
                         },
                         {
-                            icon: 'icons/fam/cross.gif', 
+                            icon: 'icons/fam/cross.gif',
                             tooltip: 'Удалить',
                             handler: function(grid, rowIndex, colIndex) {
                                 var rec = grid.store.getAt(rowIndex);
@@ -69,7 +68,7 @@ Ext.define('EmployeesGrid', {
             }],
 
             viewConfig: {
-                stripeRows: true, 
+                stripeRows: true,
             }
         });
         this.callParent(arguments);

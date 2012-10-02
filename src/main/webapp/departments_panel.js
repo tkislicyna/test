@@ -1,26 +1,26 @@
 Ext.define('DepartmentsPanel', {
     extend: 'Ext.panel.Panel',
+    region: 'west',
+    title: 'Отделы',
+    width: 270,
+    split: true,
+    collapsible: true,
+    floatable: false,
 
     initComponent: function() {
         Ext.apply(this, {
-            region: 'west',
-            title: 'Отделы',
-            width: 270,
-            split: true,
-            collapsible: true,
-            floatable: false,
             dockedItems: [{
                 xtype: 'toolbar',
                 items: [ this.createDepartmentAction ]
             }],
-            items: this.createDepartmentsView(), 
+            items: [ this.createAllEmployeesView(), this.createDepartmentsView()]
         });
         this.addEvents('departmentSelect');
         this.callParent(arguments);
     },
 
     createDepartmentsView: function() {
-        return Ext.create('widget.dataview', {
+        this.departmentsView = Ext.create('widget.dataview', {
             store: Ext.create('Ext.data.Store', {
                 model: 'Departments',
                 proxy: {
@@ -30,36 +30,74 @@ Ext.define('DepartmentsPanel', {
                         type: 'json',
                         idProperty: 'id.id'
                     },
-		            pageParam: undefined,
-		            limitParam: undefined,
-		            startParam: undefined,
-		            noCache: false
+                    pageParam: undefined,
+                    limitParam: undefined,
+                    startParam: undefined,
+                    noCache: false
                 },
                 autoLoad: true
             }),
-
             selModel: {
                 mode: 'SINGLE',
                 listeners: {
                     scope: this,
-                    selectionchange: this.onSelectionChange
+                    selectionchange: this.onDeparmentSelectionChange
                 }
             },
-
-            // listeners: {
-            //    scope: this,
-            //    contextmenu: this.onContextMenu,
-            //    viewready: this.onViewReady
-            //},
             trackOver: true,
             cls: 'dep-list',
             itemSelector: 'div.dep-list-item',
             overItemCls: 'dep-list-item-hover',
             tpl: '<tpl for="."><div class="dep-list-item">{title} (тел. {phoneNumber})</div></tpl>'
         });
+
+        return this.departmentsView;
     },
-    
-    onSelectionChange: function (dep, selections) {
-        this.fireEvent('departmentSelect', this, selections[0].data);
+
+    createAllEmployeesView: function() {
+        this.allEmployeesView = Ext.create('widget.dataview', {
+            store: Ext.create('Ext.data.Store', {
+                model: 'Departments',
+                data: [{
+                    title : 'Все сотрудники'
+                }]
+            }),
+            selModel: {
+                mode: 'SINGLE',
+                listeners: {
+                    scope: this,
+                    selectionchange: this.onAllEmployeesSelectionChange
+                }
+            },
+            listeners: {
+                scope: this,
+                viewready: this.onViewReady
+            },
+            trackOver: true,
+            cls: 'dep-list',
+            itemSelector: 'div.dep-list-item',
+            overItemCls: 'dep-list-item-hover',
+            tpl: '<tpl for="."><div class="dep-list-item">{title}</div></tpl>'
+        });
+
+        return this.allEmployeesView;
+    },
+
+    onDeparmentSelectionChange: function (view, selections) {
+        if (selections.length > 0) {
+            this.allEmployeesView.getSelectionModel().deselectAll(true);
+            this.fireEvent('departmentSelect', this, selections[0].data);
+        }
+    },
+
+    onAllEmployeesSelectionChange: function (view, selections) {
+        if (selections.length > 0) {
+            this.departmentsView.getSelectionModel().deselectAll(true);
+            this.fireEvent('departmentSelect', this, null);
+        }
+    },
+
+    onViewReady: function () {
+        this.allEmployeesView.getSelectionModel().select(0);
     }
 });
