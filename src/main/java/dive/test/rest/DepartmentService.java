@@ -25,14 +25,6 @@ public class DepartmentService
     @Produces(MediaTypes.JSON_UTF_8)
     public Collection<Department> getAllDepartments()
     {
-        /*try
-        {
-            Thread.sleep(1300);
-        } catch (InterruptedException e)
-        {
-            throw new RuntimeException(e);
-        }*/
-
         return this.depDao.findAll();
     }
 }

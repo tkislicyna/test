@@ -39,6 +39,9 @@ public class DepartmentDao
         return this.entityManager.createQuery(query).getResultList();
     }
 
+    /**
+     * Persist department to DB
+     */
     public void persist(Department department)
     {
         this.entityManager.persist(department);

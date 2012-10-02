@@ -9,10 +9,6 @@ Ext.define('DepartmentsPanel', {
 
     initComponent: function() {
         Ext.apply(this, {
-            dockedItems: [{
-                xtype: 'toolbar',
-                items: [ this.createDepartmentAction ]
-            }],
             items: [ this.createAllEmployeesView(), this.createDepartmentsView()]
         });
         this.addEvents('departmentSelect');

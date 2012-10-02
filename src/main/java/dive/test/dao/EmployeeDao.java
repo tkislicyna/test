@@ -55,6 +55,9 @@ public class EmployeeDao
         return this.entityManager.createQuery(query).getResultList();
     }
 
+    /**
+     * Persist employee to DB
+     */
     public void persist(Employee employee)
     {
         this.entityManager.persist(employee);

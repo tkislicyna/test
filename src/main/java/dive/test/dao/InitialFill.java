@@ -12,7 +12,8 @@ import dive.test.entities.Department;
 import dive.test.entities.Employee;
 
 /**
- * Created 01.10.2012
+ * Class for loading test data to DB
+ * <p>Created 01.10.2012
  * @author tkislicyna
  * 
 **/
@@ -31,14 +32,24 @@ public class InitialFill
     @PostConstruct
     public void fillInitialData()
     {
-        Department a = createDepartment("Отдел А", "1234556");
-        Department b = createDepartment("Отдел В", "654321");
+        Department a = createDepartment("Отдел A", "333-55-55");
+        Department b = createDepartment("Отдел B", "363-05-50");
+        Department c = createDepartment("Отдел C", "332-02-02");
 
         createEmployee("Петр", "Петров", a);
         createEmployee("Василий", "Сидоров", a);
         createEmployee("Иван", "Иванов", a);
+
         createEmployee("Юрий", "Гагарин", b);
         createEmployee("Герман", "Титов", b);
+        createEmployee("Семен", "Савельев", b);
+        createEmployee("Влад", "Петров", b);
+
+        createEmployee("Герман", "Зайцев", c);
+        createEmployee("Маша", "Зайцева", c);
+        createEmployee("Оля", "Зайцева", c);
+        createEmployee("Даша", "Зайцева", c);
+        createEmployee("Галя", "Зайцева", c);
     }
 
     private Department createDepartment(String title,

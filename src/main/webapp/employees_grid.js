@@ -27,46 +27,8 @@ Ext.define('EmployeesGrid', {
                 { header: 'Фамилия', width: 75, sortable: true, dataIndex: 'lastName' },
                 { header: 'Имя', width: 75, sortable: true, dataIndex: 'firstName' },
                 { header: 'Отдел', width: 75, sortable: true, dataIndex: 'department.title' },
-                { header: 'Телефон', width: 100, sortable: true, dataIndex: 'department.phoneNumber' },
-                {
-                    header: 'Действия',
-                    xtype: 'actioncolumn',
-                    width: 75,
-                    items: [
-                        {
-                            icon: 'icons/fam/user_edit.png',
-                            tooltip: 'Редактировать',
-                            handler: function(grid, rowIndex, colIndex) {
-                                var rec = grid.store.getAt(rowIndex);
-                                alert("edit " + rec.get('id.id'));
-                            }
-                        },
-                        {
-                            icon: 'icons/fam/cross.gif',
-                            tooltip: 'Удалить',
-                            handler: function(grid, rowIndex, colIndex) {
-                                var rec = grid.store.getAt(rowIndex);
-                                Ext.MessageBox.show({
-                                    title: 'Удаление сотрудника',
-                                    msg: 'Вы действительно хотите удалить сотрудника?',
-                                    buttons: Ext.MessageBox.YESNO,
-                                    fn: function(btn)
-                                    {
-                                        alert(btn);
-                                        //alert("delete " + rec.get('id'));
-                                    }
-                                });
-                            }
-                        }
-                    ]
-                }
+                { header: 'Телефон', width: 100, sortable: true, dataIndex: 'department.phoneNumber' }
             ],
-
-            dockedItems: [{
-                xtype: 'toolbar',
-                items: [this.addEmployeeAction, this.editEmployeeAction]
-            }],
-
             viewConfig: {
                 stripeRows: true,
             }
