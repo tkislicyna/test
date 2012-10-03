@@ -2,6 +2,8 @@ package dive.test.entities;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import com.google.common.base.Objects;
+
 /**
  * Created 01.10.2012
  * @author tkislicyna
@@ -30,10 +32,7 @@ public class DepartmentId
     @Override
     public int hashCode()
     {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
-        return result;
+        return Objects.hashCode(this.id);
     }
 
     @Override
@@ -49,26 +48,10 @@ public class DepartmentId
         }
         if (getClass() != obj.getClass())
         {
-            if (obj instanceof Integer)
-            {
-                return obj.equals(this.id);
-            } else
-            {
-                return false;
-            }
-        }
-        DepartmentId other = (DepartmentId) obj;
-        if (this.id == null)
-        {
-            if (other.id != null)
-            {
-                return false;
-            }
-        } else if (!this.id.equals(other.id))
-        {
             return false;
         }
-        return true;
+        DepartmentId other = (DepartmentId) obj;
+        return Objects.equal(this.id, other.id);
     }
 
     @Override
