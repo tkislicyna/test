@@ -1,0 +1,21 @@
+{
+  "id" : "03910ebc-e9eb-4995-94e3-13e8fa507199",
+  "request" : {
+    "url" : "/products",
+    "method" : "GET",
+    "headers" : {
+      "Content-Type" : {
+        "matches" : "application/json;charset=UTF-8.*"
+      }
+    }
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"items\":[{\"code\":\"HEALTH_INSURANCE\",\"description\":\"IRUTGQNTIMXXYWBMVXTW\",\"type\":\"RAILWAY\"}]}",
+    "headers" : {
+      "Content-Type" : "application/json;charset=UTF-8"
+    },
+    "transformers" : [ "response-template" ]
+  },
+  "uuid" : "03910ebc-e9eb-4995-94e3-13e8fa507199"
+}

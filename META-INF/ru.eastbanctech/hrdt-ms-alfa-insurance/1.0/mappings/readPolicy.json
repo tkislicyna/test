@@ -1,0 +1,21 @@
+{
+  "id" : "45bb9fed-3de6-43b4-a3d2-027cd6fe4b4c",
+  "request" : {
+    "urlPattern" : "/policy\\?policyId=[0-9]+",
+    "method" : "GET",
+    "headers" : {
+      "Content-Type" : {
+        "matches" : "application/json;charset=UTF-8.*"
+      }
+    }
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"beginDate\":\"2018-12-12T00:00\",\"product\":{\"code\":\"HEALTH_INSURANCE\"},\"amount\":{\"amount\":250,\"currency\":\"RUB\"},\"risks\":[{\"coverage\":{\"amount\":600000,\"currency\":\"RUB\"},\"type\":\"NS\"}],\"policyId\":\"27495443\",\"endDate\":\"2018-12-12T00:00\",\"person\":{\"firstName\":\"Igor\",\"lastName\":\"Letov\",\"phone\":\"9130000000\",\"document\":\"1234987654\",\"middleName\":\"Georgievich\",\"infant\":false,\"birthDate\":\"2000-06-18\",\"email\":\"test@gmail.com\"},\"resources\":[\"href\"],\"segments\":[{\"toIata\":\"OVB\",\"carrier\":\"S7\",\"fromIata\":\"OVB\",\"departureDateTime\":\"2019-10-31T10:20\",\"arrivalDateTime\":\"2019-10-31T14:05\",\"flightNumber\":\"891\"}],\"status\":\"ISSUING\"}",
+    "headers" : {
+      "Content-Type" : "application/json;charset=UTF-8"
+    },
+    "transformers" : [ "response-template" ]
+  },
+  "uuid" : "45bb9fed-3de6-43b4-a3d2-027cd6fe4b4c"
+}
