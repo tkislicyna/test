@@ -1,0 +1,37 @@
+{
+  "id" : "7cc81159-fa45-4d71-bcb5-766e0c7d5a8c",
+  "request" : {
+    "url" : "/dcs/update-fqtv",
+    "method" : "POST",
+    "headers" : {
+      "Content-Type" : {
+        "matches" : "application/json.*"
+      }
+    },
+    "bodyPatterns" : [ {
+      "matchesJsonPath" : "$.['frequentFlyerCard'][?(@.['number'] =~ /[a-zA-Z0-9]+/)]"
+    }, {
+      "matchesJsonPath" : "$.['passenger'][?(@.['title'] =~ /[\\p{L}]*/)]"
+    }, {
+      "matchesJsonPath" : "$.['frequentFlyerCard'][?(@.['status'] =~ /^Gold$|^Silver$|^Platinum$|^Ruby$|^Sapphlre$|^Emerald$|^$/)]"
+    }, {
+      "matchesJsonPath" : "$[?(@.['locator'] =~ /[a-zA-Z0-9]+/)]"
+    }, {
+      "matchesJsonPath" : "$.['frequentFlyerCard'][?(@.['carrier'] =~ /[A-Z0-9]{2}/)]"
+    }, {
+      "matchesJsonPath" : "$.['passenger'][?(@.['firstName'] =~ /[\\p{L}]*/)]"
+    }, {
+      "matchesJsonPath" : "$.['passenger'][?(@.['birthday'] =~ /(\\d\\d\\d\\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])/)]"
+    }, {
+      "matchesJsonPath" : "$.['passenger'][?(@.['lastName'] =~ /[\\p{L}]*/)]"
+    }, {
+      "matchesJsonPath" : "$.['passenger'][?(@.['personType'] =~ /^ADULT$|^INFANT$|^CHILD$/)]"
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"result\":\"OK\"}",
+    "transformers" : [ "response-template" ]
+  },
+  "uuid" : "7cc81159-fa45-4d71-bcb5-766e0c7d5a8c"
+}
