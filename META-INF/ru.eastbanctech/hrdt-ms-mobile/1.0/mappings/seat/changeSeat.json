@@ -1,0 +1,47 @@
+{
+  "id" : "b96141c0-943f-4c85-be12-c53d3c6d7e58",
+  "request" : {
+    "url" : "/dcs/change-seat/v2",
+    "method" : "POST",
+    "headers" : {
+      "Content-Type" : {
+        "matches" : "application/json.*"
+      }
+    },
+    "bodyPatterns" : [ {
+      "matchesJsonPath" : "$.['segment'][?(@.['date'] =~ /(\\d\\d\\d\\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])/)]"
+    }, {
+      "matchesJsonPath" : "$.['passenger'][?(@.['title'] =~ /[A-Z]{2,3}/)]"
+    }, {
+      "matchesJsonPath" : "$[?(@.['requestedSeatRow'] =~ /([1-9]\\d*)/)]"
+    }, {
+      "matchesJsonPath" : "$.['segment'][?(@.['carrier'] =~ /[A-Z0-9]{2}/)]"
+    }, {
+      "matchesJsonPath" : "$.['passenger'][?(@.['lastName'] =~ /^\\s*\\S[\\S\\s]*/)]"
+    }, {
+      "matchesJsonPath" : "$.['segment'][?(@.['fromIata'] =~ /[A-Z]{3}/)]"
+    }, {
+      "matchesJsonPath" : "$.['segment'][?(@.['rbd'] =~ /[A-Z]{1}/)]"
+    }, {
+      "matchesJsonPath" : "$.['passenger'][?(@.['personType'] =~ /(ADULT|CHILD|INFANT)/)]"
+    }, {
+      "matchesJsonPath" : "$.['segment'][?(@.['operatingAirline'] =~ /[A-Z0-9]{2}/)]"
+    }, {
+      "matchesJsonPath" : "$.['segment'][?(@.['toIata'] =~ /[A-Z]{3}/)]"
+    }, {
+      "matchesJsonPath" : "$.['passenger'][?(@.['firstName'] =~ /^\\s*\\S[\\S\\s]*/)]"
+    }, {
+      "matchesJsonPath" : "$.['segment'][?(@.['flightNumber'] =~ /([1-9]\\d*)/)]"
+    }, {
+      "matchesJsonPath" : "$[?(@.['locator'] =~ /[A-Z0-9]{5,6}/)]"
+    }, {
+      "matchesJsonPath" : "$[?(@.['requestedSeatNumber'] =~ /[A-Z]{1}/)]"
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"result\":\"OK\",\"seatRow\":1,\"seatNumber\":\"A\"}",
+    "transformers" : [ "response-template" ]
+  },
+  "uuid" : "b96141c0-943f-4c85-be12-c53d3c6d7e58"
+}

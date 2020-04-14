@@ -1,0 +1,47 @@
+{
+  "id" : "e8223814-3515-4017-a6ab-19bebfbd95b7",
+  "request" : {
+    "url" : "/dcs/upgrade-customer",
+    "method" : "POST",
+    "headers" : {
+      "Content-Type" : {
+        "matches" : "application/json.*"
+      }
+    },
+    "bodyPatterns" : [ {
+      "matchesJsonPath" : "$[?(@.['productId'] =~ /^\\s*\\S[\\S\\s]*/)]"
+    }, {
+      "matchesJsonPath" : "$.['segment'][?(@.['date'] =~ /(\\d\\d\\d\\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])/)]"
+    }, {
+      "matchesJsonPath" : "$.['passenger'][?(@.['name'] =~ /[\\p{L}]*/)]"
+    }, {
+      "matchesJsonPath" : "$.['segment'][?(@.['rbd'] =~ /^\\s*\\S[\\S\\s]*/)]"
+    }, {
+      "matchesJsonPath" : "$.['passenger'][?(@.['surname'] =~ /[\\p{L}]*/)]"
+    }, {
+      "matchesJsonPath" : "$.['passenger'][?(@.['title'] =~ /[\\p{L}]*/)]"
+    }, {
+      "matchesJsonPath" : "$.['segment'][?(@.['carrier'] =~ /[A-Z0-9]{2}/)]"
+    }, {
+      "matchesJsonPath" : "$.['segment'][?(@.['fromIata'] =~ /[A-Z]{3}/)]"
+    }, {
+      "matchesJsonPath" : "$.['passenger'][?(@.['personType'] =~ /(ADULT|CHILD|INFANT)/)]"
+    }, {
+      "matchesJsonPath" : "$.['passenger'][?(@.['uniqueCustomerId'] =~ /[a-zA-Z0-9]+/)]"
+    }, {
+      "matchesJsonPath" : "$.['segment'][?(@.['operatingAirline'] =~ /[A-Z0-9]{2}/)]"
+    }, {
+      "matchesJsonPath" : "$.['segment'][?(@.['toIata'] =~ /[A-Z]{3}/)]"
+    }, {
+      "matchesJsonPath" : "$.['segment'][?(@.['flightNumber'] =~ /([1-9]\\d*)/)]"
+    }, {
+      "matchesJsonPath" : "$[?(@.['locator'] =~ /[A-Z0-9]{5,6}/)]"
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"result\":\"OK\",\"seatRow\":1085274249,\"seatNumber\":{\"cursor\":8}}",
+    "transformers" : [ "response-template" ]
+  },
+  "uuid" : "e8223814-3515-4017-a6ab-19bebfbd95b7"
+}
