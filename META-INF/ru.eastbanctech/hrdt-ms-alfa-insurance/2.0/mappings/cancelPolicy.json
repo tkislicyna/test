@@ -1,0 +1,21 @@
+{
+  "id" : "35cc4277-4f93-4b02-821f-4270285df39e",
+  "request" : {
+    "urlPattern" : "/cancel-policy\\?policyId=[0-9]+",
+    "method" : "DELETE",
+    "headers" : {
+      "Content-Type" : {
+        "matches" : "application/json;charset=UTF-8.*"
+      }
+    }
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"result\":\"OK\"}",
+    "headers" : {
+      "Content-Type" : "application/json;charset=UTF-8"
+    },
+    "transformers" : [ "response-template" ]
+  },
+  "uuid" : "35cc4277-4f93-4b02-821f-4270285df39e"
+}
